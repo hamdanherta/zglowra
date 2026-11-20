@@ -1,32 +1,12 @@
-import React, { useState } from 'react';
-import { Lock, MessageCircle, RefreshCw, ShieldAlert, CheckCircle } from 'lucide-react';
+import React from 'react';
+import { Lock, MessageCircle, ShieldAlert } from 'lucide-react';
 import { useLicense } from '../../context/LicenseContext';
-import Button from '../ui/Button';
 import Card from '../ui/Card';
 
 export const LicenseLockScreen: React.FC = () => {
-  const { isLocked, lockInfo, checkStatus } = useLicense();
-  const [refreshing, setRefreshing] = useState(false);
-  const [feedback, setFeedback] = useState<string | null>(null);
+  const { isLocked, lockInfo } = useLicense();
 
   if (!isLocked) return null;
-
-  const handleRefresh = async () => {
-    setRefreshing(true);
-    setFeedback(null);
-    try {
-      const result = await checkStatus(true);
-      if (!result?.isLocked) {
-        setFeedback('Aplikasi berhasil diaktifkan kembali!');
-      } else {
-        setFeedback('Status di Google Sheet masih dalam status KUNCI / NONAKTIF.');
-      }
-    } catch (err) {
-      setFeedback('Gagal menghubungi server. Pastikan komputer terhubung ke internet.');
-    } finally {
-      setRefreshing(false);
-    }
-  };
 
   // Bersihkan format nomor WA (contoh: 0812 -> 62812)
   let cleanPhone = (lockInfo.contact || '').replace(/[^0-9]/g, '');
@@ -59,20 +39,7 @@ export const LicenseLockScreen: React.FC = () => {
             'Aplikasi ini telah dinonaktifkan sementara oleh pengembang sistem. Silakan hubungi pihak developer untuk pembukaan akses lisensi.'}
         </p>
 
-        {/* Feedback message */}
-        {feedback && (
-          <div
-            className={`w-full p-3 mb-5 rounded-2xl text-xs font-semibold ${
-              feedback.includes('berhasil')
-                ? 'bg-emerald-50 text-emerald-700'
-                : 'bg-brand-coral-soft text-brand-text'
-            }`}
-          >
-            {feedback}
-          </div>
-        )}
-
-        {/* Action Buttons */}
+        {/* Action Button */}
         <div className="w-full flex flex-col gap-3">
           {waUrl && (
             <a
@@ -85,16 +52,6 @@ export const LicenseLockScreen: React.FC = () => {
               <span>Hubungi Pengembang via WhatsApp</span>
             </a>
           )}
-
-          <Button
-            variant="secondary"
-            onClick={handleRefresh}
-            disabled={refreshing}
-            className="w-full"
-          >
-            <RefreshCw className={`w-4 h-4 mr-2 ${refreshing ? 'animate-spin' : ''}`} />
-            {refreshing ? 'Memeriksa Status...' : 'Cek Status Aktivasi Ulang'}
-          </Button>
         </div>
 
         {/* Footer info */}
