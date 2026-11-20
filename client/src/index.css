@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --radius-card: 32px;
+  --radius-card-sm: 24px;
+  --radius-card-img: 28px;
+  --radius-input: 20px;
+  --radius-modal: 36px;
+  --shadow-card: 0 10px 30px rgba(221, 105, 91, 0.18), 0 2px 8px rgba(0, 0, 0, 0.05);
+  --shadow-card-hover: 0 16px 40px rgba(221, 105, 91, 0.28), 0 4px 12px rgba(0, 0, 0, 0.06);
+  --shadow-button: 0 6px 16px rgba(221, 105, 91, 0.35);
+}
+
+/* Prevent unwanted horizontal overflow */
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+  scroll-behavior: smooth;
+}
+
+/* Base resets to enforce ZERO BORDER rule strictly across all native elements */
+*, *::before, *::after {
+  border-color: transparent !important;
+}
+
+input, select, textarea, button {
+  outline: none !important;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #FFF8F7;
+}
+::-webkit-scrollbar-thumb {
+  background: #DD695B;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #c85a4d;
+}
+

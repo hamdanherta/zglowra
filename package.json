@@ -1,0 +1,17 @@
+{
+  "name": "zglowra",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Sistem Informasi E-Commerce Produk Body Care ZGlowra - Zfree Glow",
+  "scripts": {
+    "dev": "concurrently -k -n \"SERVER,CLIENT\" -c \"magenta,cyan\" \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
+    "start": "concurrently -k -n \"SERVER,CLIENT\" -c \"magenta,cyan\" \"npm run start --prefix server\" \"npm run preview --prefix client\"",
+    "seed": "npm run seed --prefix server",
+    "test": "npm run test --prefix server",
+    "build": "npm run build --prefix client"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
+
